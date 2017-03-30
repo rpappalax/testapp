@@ -14,6 +14,7 @@
     <h1>Lets test!</h1>
 
     <section>
+      <p>A password form will show a doorhanger to remember the password</p>
       <form>
         <input type="text" placeholder="Username" /><br />
         <input type="password" placeholder="Password" /><br />
@@ -30,7 +31,7 @@
     </section>
 
     <section>
-      <button id="location">Get Location</button>
+      <button id="location">Get Location</button><span id="location-result"></span>
     </section>
 
     <section>
@@ -53,7 +54,9 @@
 
   <script type="text/javascript">
     document.getElementById('location').addEventListener('click', function() {
-      navigator.geolocation.getCurrentPosition(function() { });
+      navigator.geolocation.getCurrentPosition(function(pos) {
+        document.getElementById('location-result').innerText = JSON.stringify(pos);
+      });
     });
   </script>
 
