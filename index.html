@@ -55,7 +55,10 @@
   <script type="text/javascript">
     document.getElementById('location').addEventListener('click', function() {
       navigator.geolocation.getCurrentPosition(function(pos) {
-        document.getElementById('location-result').innerText = JSON.stringify(pos.coords);
+        document.getElementById('location-result').innerText = JSON.stringify({
+          longitude: pos.coords.longitude,
+          latitude: pos.coords.latitude
+        });
       });
     });
   </script>
