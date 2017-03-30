@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="manifest" href="manifest.json">
+    <title>Test App</title>
+    <style>
+      section { padding: 1em; }
+    </style>
+  </head>
+  <body>
+
+    <h1>Lets test!</h1>
+
+    <section>
+      <form>
+        <label>Username: <input type="test" /></label><br />
+        <label>Password: <input type="password" /></label>
+      </form>
+    </section>
+
+    <section>
+      <select>
+        <option>The Only Ones</option>
+        <option>The National</option>
+        <option>FEWS</option>
+      </select>
+    </section>
+
+    <section>
+      <button id="location">Get Location</button>
+    </section>
+
+    <section>
+      <a href="http://google.com">External link</a>
+    </section>
+
+  </body>
+
+  <script type="text/javascript">
+    document.getElementById('location').addEventListener('click', function() {
+      navigator.geolocation.getCurrentPosition(function() { });
+    });
+  </script>
+
+</html>
