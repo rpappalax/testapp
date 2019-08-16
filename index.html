@@ -160,12 +160,12 @@ function myFunction() {
 
    <section>
    <p class="header">Test Microphone Dialogue</p>
-   <input id=video type=button value="Open microphone" onclick=open_microphone() >
+   <input id=audio  type=button value="Open microphone" onclick=open_microphone() >
    </section>
 
    <section>
    <p class="header">Test Notifications Dialogue</p>
-   <input id=video type=button value="Open notifications dialogue" onclick=open_notifications() >
+   <input id=notify type=button value="Open notifications dialogue" onclick=open_notifications() >
    </section>
 
   <script>
@@ -185,15 +185,15 @@ function myFunction() {
    }
 
    function open_microphone() {
-	var video = document.getElementById('video');
+	var audio = document.getElementById('audio');
 
 	// Get access to the camera!
 	if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-	    // Not adding `{ audio: true }` since we only want video now
+	    // Not adding `{ audio: true }` since we only want audio now
 	    navigator.mediaDevices.getUserMedia({ audio: true }).then(function(stream) {
-		//video.src = window.URL.createObjectURL(stream);
-		//video.srcObject = stream;
-		video.play();
+		//audio.src = window.URL.createObjectURL(stream);
+		//audio.srcObject = stream;
+		audio.play();
 	    });
 	}
   }
