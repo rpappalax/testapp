@@ -143,25 +143,102 @@ function myFunction() {
     <section>
       <a href="tel://+1-234-555-1212">Telephone link</a>
     </section>
+    
 
-    <h2>Other</h2>
-        <hr>
+<h2>Site Permissions</h2>
+<hr>
+
+   <section>
+   <p class="header">Test Geolocation</p>
+   <span id="live-geolocation">click here</span>
+   </section>
+
+   <section>
+   <p class="header">Test Camera</p>
+   <input id=video type=button value="Open camera" onclick=open_camera() >
+   </section>
+
+   <section>
+   <p class="header">Test Microphone</p>
+   <input id=video type=button value="Open microphone" onclick=open_microphone() >
+   </section>
+
+  <script>
+   // Grab elements, create settings, etc.
+   function open_camera() {
+	var video = document.getElementById('video');
+
+	// Get access to the camera!
+	if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+	    // Not adding `{ audio: true }` since we only want video now
+	    navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+		//video.src = window.URL.createObjectURL(stream);
+		//video.srcObject = stream;
+		video.play();
+	    });
+	}
+   }
+
+   function open_microphone() {
+	var video = document.getElementById('video');
+
+	// Get access to the camera!
+	if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+	    // Not adding `{ audio: true }` since we only want video now
+	    navigator.mediaDevices.getUserMedia({ audio: true }).then(function(stream) {
+		//video.src = window.URL.createObjectURL(stream);
+		//video.srcObject = stream;
+		video.play();
+	    });
+	}
+  }
+  </script>
+
+
+
+<h2>Other</h2>
+<hr>
    <section>
       <p class="header">File Upload</p>
     <a href="https://webcompat.com/issues/new?url=http%3A%2F%2Fwww.mozilla.org">Web Compat Reporting Tool</a>
     </section>
-    
-<hr>
-
-     <section>
-     <input type="file" accept="image/*;capture=camera">
-     </section>
-
-     <section>
-     <input type="file" accept="audio/*;capture=microphone">
-     </section>
 
   </body>
+
+  <script src="j/jquery.js"></script>
+  <script src="j/geoPosition.js"></script>
+  <script src="//maps.googleapis.com/maps/api/js?sensor=true"></script>
+  <script>
+  function supports(bool, suffix) {
+    var s = "Your browser ";
+    if (bool) {
+      s += "supports " + suffix + ".";
+    } else {
+      s += "does not support " + suffix + ". :(";
+    }
+    return s;
+  }
+  function lookup_location() {
+    geoPosition.getCurrentPosition(show_map, show_map_error);
+  }
+  function show_map(loc) {
+    $("#geo-wrapper").css({'width':'320px','height':'350px'});
+    var map = new google.maps.Map(document.getElementById("geo-wrapper"), {zoom: 14, mapTypeControl:true, zoomControl: true, mapTypeId: google.maps.MapTypeId.ROADMAP});
+    var center = new google.maps.LatLng(loc.coords.latitude,loc.coords.longitude);
+    map.setCenter(center);
+    var marker = new google.maps.Marker({map: map, position: center, draggable: false, title: "You are here (more or less)"});
+  }
+  function show_map_error() {
+    $("#live-geolocation").html('Unable to determine your location.');
+  }
+  $(function() {
+    if (geoPosition.init()) {
+      $("#live-geolocation").html(supports(true, "geolocation") + '<br><input type=button value="Open Geolocation" onclick="lookup_location();return false">');
+    } else {
+      $("#live-geolocation").html(supports(false, "geolocation"));
+    }
+  });
+  </script>
 
   <script type="text/javascript">
     document.getElementById('location').addEventListener('click', function() {
